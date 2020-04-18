@@ -1,1 +1,1 @@
-web: python services.py
+web: gunicorn services:app
