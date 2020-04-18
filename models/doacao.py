@@ -3,7 +3,7 @@ class doacao():
 
     destinatario = Hospital()
     doador       = Doador()
-    produto      = Produto()
+    produto      = ""
     confirmada   = False
 
     def __init__(self, doador, destinatario, produto):
@@ -11,3 +11,5 @@ class doacao():
         self.doador       = doador
         self.produto      = produto
 
+    def realizarDoacao(self, doador):
+        self.doador = doador

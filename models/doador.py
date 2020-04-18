@@ -3,7 +3,6 @@ class doador():
     tipo     = "" # PJ ou PF
     
     email    = ""
-    senha    = ""
 
     def __init__(self, nome, tipo, email, senha):
         self.nome  = nome
