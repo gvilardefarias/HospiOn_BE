@@ -39,7 +39,7 @@ def authorizationGoogle():
 
 @app.route('/auth', methods=['POST'])
 def authorizationFacebook():
-    auth     = request.authorization
+    auth     = request.headers['authorization']
     authType = request.args.get('by')
 
     content  = request.json
