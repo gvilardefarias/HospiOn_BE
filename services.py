@@ -45,10 +45,11 @@ def authorizationFacebook():
     content  = request.json
 
     if authType=='facebook':
+        r    = requests.get('https://graph.facebook.com/me?access_token=' + str(auth))
         data = r.json()
+        print(data)
 
         if r.status_code==200:
-            r    = requests.get('https://graph.facebook.com/me?access_token=' + str(auth))
             email = content['email']
 
             data['token'] = jwt.encode({'email': email}, secretWorld, algorithm='HS256')
