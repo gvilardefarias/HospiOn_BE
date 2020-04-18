@@ -1,0 +1,16 @@
+{
+  "id": 0,
+  "nome": "Trauma",
+  "pedidos": [0, 2, 3],
+
+  "endereco": {
+    "rua": "Rua sdasdas, 234",
+    "estado": "PB",
+    "cidade": "Campina Grande"
+  },
+
+  "dadosBancarios": {
+    "conta": "12345",
+    "agencia": "2131231"
+  }
+}
