@@ -4,7 +4,6 @@ from jwt import (
     jwk_from_dict,
     jwk_from_pem,
 )
-import json
 import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS

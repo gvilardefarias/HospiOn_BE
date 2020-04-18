@@ -1,4 +1,5 @@
 import os.path
+import json
 
 def userRegistered(email):
     return os.path.exists('users/' + email + '.json')
