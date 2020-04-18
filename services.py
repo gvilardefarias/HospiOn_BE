@@ -1,5 +1,9 @@
 import requests
-import jwt
+from jwt import (
+    JWT,
+    jwk_from_dict,
+    jwk_from_pem,
+)
 import json
 import os
 from flask import Flask, jsonify, request
@@ -9,7 +13,8 @@ import methods
 app = Flask(__name__)
 CORS(app)
 
-secretWorld = "biiirHospOn"
+instanceJWT = JWT()
+key = jwk_from_dict({'kty': 'oct', 'k': 'biiirHospOn'})
 
 @app.route('/')
 def hello_world():
@@ -17,7 +22,7 @@ def hello_world():
 
 @app.route('/auth', methods=['GET'])
 def authorizationGoogle():
-    auth     = request.authorization
+    auth     = request.headers['authorization']
     authType = request.args.get('by')
 
     if authType=='google':
@@ -27,7 +32,7 @@ def authorizationGoogle():
         if r.status_code==200:
             email = data['email']
 
-            data['token'] = jwt.encode({'email': email}, secretWorld, algorithm='HS256')
+            data['token'] = instanceJWT.encode({'email': email}, key, algorithm='HS256')
 
             if not methods.userRegistered(email):
                 methods.register(data['given_name'], data['family_name'], email, "PF")
@@ -47,13 +52,11 @@ def authorizationFacebook():
     if authType=='facebook':
         r    = requests.get('https://graph.facebook.com/me?access_token=' + str(auth))
         data = r.json()
-        print('https://graph.facebook.com/me?access_token=' + str(auth))
-        print(data)
 
         if r.status_code==200:
             email = content['email']
 
-            data['token'] = jwt.encode({'email': email}, secretWorld, algorithm='HS256')
+            data['token'] = instanceJWT.encode({'email': email}, key, algorithm='HS256')
 
             if not methods.userRegistered(email):
                 methods.register(data['name'], '', email, "PF")
