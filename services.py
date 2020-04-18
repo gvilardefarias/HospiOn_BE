@@ -1,3 +1,4 @@
+import requests
 import os
 from flask import Flask, jsonify
 
@@ -13,7 +14,7 @@ def authorization():
     authType = request.args.get('by')
 
    # if authType=='google':
-    return request.get('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=asdas')
+    return requests.get('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=asdas')
 
     
 
