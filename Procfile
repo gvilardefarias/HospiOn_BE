@@ -1,1 +1,1 @@
-python3 services.py
+python services.py
