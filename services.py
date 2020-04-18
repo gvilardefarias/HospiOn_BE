@@ -47,6 +47,7 @@ def authorizationFacebook():
     if authType=='facebook':
         r    = requests.get('https://graph.facebook.com/me?access_token=' + str(auth))
         data = r.json()
+        print('https://graph.facebook.com/me?access_token=' + str(auth))
         print(data)
 
         if r.status_code==200:
