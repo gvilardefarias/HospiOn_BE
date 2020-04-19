@@ -1,4 +1,5 @@
 import os.path
+import hashlib
 import json
 
 def userRegistered(email):
@@ -14,7 +15,7 @@ def register(name, surname, email, tipo):
     arquivo.close()
 
 def registerPJ(name, email, password, cnpj):
-    data = {'name': name, 'email': email, 'password': hash(password),'type': 'PJ'}
+    data = {'name': name, 'email': email, 'password': hashlib.sha224(password.encode('UTF-8')).hexdigest(),'type': 'PJ'}
 
     arquivo = open('users/' + email + '.json', 'w')
 
@@ -67,7 +68,7 @@ def login(email, password):
     if not userRegistered(email):
         return False
 
-    if hash(password)==getUserP(email)['password']:
+    if hashlib.sha224(password.encode('UTF-8')).hexdigest()==getUserP(email)['password']:
         return True
 
     return False
