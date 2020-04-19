@@ -1,7 +1,7 @@
 {
   "id": 0,
   "nome": "Trauma",
-  "pedidos": [0, 2, 3],
+  "pedidos": [0, 2],
 
   "endereco": {
     "rua": "Rua sdasdas, 234",

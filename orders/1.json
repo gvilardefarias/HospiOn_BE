@@ -1,0 +1,11 @@
+
+{
+  "id": 1,
+
+  "titulo": "Falta EPI",
+  "descricao": "Hospital se encontra em estado de urgencia sem EPIs",
+
+  "hospitalID": 1,
+  "doador": "",
+  "confirmada": false
+}

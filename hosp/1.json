@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "nome": "FIP",
+  "pedidos": [1],
+
+  "endereco": {
+    "rua": "Rua do leite, 432",
+    "estado": "PB",
+    "cidade": "Campina Grande"
+  },
+
+  "dadosBancarios": {
+    "conta": "54321",
+    "agencia": "7121231"
+  }
+}
