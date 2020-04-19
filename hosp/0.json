@@ -1,10 +1,10 @@
 {
   "id": 0,
-  "nome": "Trauma",
+  "nome": "Hospital de Trauma de Campina Grande",
   "pedidos": [0, 2],
 
   "endereco": {
-    "rua": "Rua sdasdas, 234",
+    "rua": "Av. Mal. Floriano Peixoto, 1045",
     "estado": "PB",
     "cidade": "Campina Grande"
   },

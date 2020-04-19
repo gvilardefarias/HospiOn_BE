@@ -1,10 +1,10 @@
 {
   "id": 1,
-  "nome": "FIP",
+  "nome": "Hospital da Criança",
   "pedidos": [1],
 
   "endereco": {
-    "rua": "Rua do leite, 432",
+    "rua": " Av. Mal. Floriano Peixoto, 992",
     "estado": "PB",
     "cidade": "Campina Grande"
   },
