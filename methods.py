@@ -30,6 +30,13 @@ def getUser(email):
 
     return data
 
+def getHospital(ID):
+    arquivo = open('hosp/' + str(ID) + '.json', 'r')
+    data    = json.load(arquivo)
+    arquivo.close()
+
+    return data
+
 def login(email, password):
     if not userRegistered(email):
         return False
@@ -38,6 +45,14 @@ def login(email, password):
         return True
 
     return False
+
+def getOrder(ID):
+    arquivo = open('orders/' + str(ID) + '.json', 'r')
+    data    = json.load(arquivo)
+    arquivo.close()
+
+    return data
+
 
 def getAllOrders():
     count   = open('orders/count', 'r')
@@ -53,3 +68,12 @@ def getAllOrders():
         arquivo.close()
 
     return orders
+
+def updateOrder(ID, data):
+    arquivo = open('orders/' + str(ID) + '.json', 'w')
+
+    arquivo.write(json.dumps(data))
+
+    arquivo.close()
+    
+    return data

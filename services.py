@@ -112,9 +112,21 @@ def login():
 def getUser(email):
     return jsonify(methods.getUser(email))
 
+@app.route('/hospital/<ID>')
+def getHospital(ID):
+    return jsonify(methods.getHospital(ID))
+
+@app.route('/getOrder/<ID>')
+def getOrder(ID):
+    return jsonify(methods.getOrder(ID))
+
 @app.route('/getAllOrders/')
 def getAllOrders():
     return jsonify(methods.getAllOrders())
+
+@app.route('/updateOrder/<ID>', methods=['POST'])
+def updateOrder(ID):
+    return jsonify(methods.updateOrder(ID, request.json))
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
