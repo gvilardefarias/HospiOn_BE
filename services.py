@@ -20,30 +20,8 @@ key = jwk_from_dict({'kty': 'oct', 'k': 'biiirHospOn'})
 def hello_world():
     return jsonify({"message": "Hello Heroku"})
 
-@app.route('/auth', methods=['GET'])
-def authorizationGoogle():
-    auth     = request.headers['authorization']
-    authType = request.args.get('by')
-
-    if authType=='google':
-        r    = requests.get('https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + str(auth))
-        data = r.json()
-
-        if r.status_code==200:
-            email = data['email']
-
-            data['token'] = instanceJWT.encode({'email': email}, key, alg='HS256')
-
-            if not methods.userRegistered(email):
-                methods.register(data['given_name'], data['family_name'], email, "PF")
-    
-            return jsonify(data)
-
-
-    return jsonify({"message": "Authentication Failed"}), 400
-
 @app.route('/auth', methods=['POST'])
-def authorizationFacebook():
+def authorization():
     authType = request.args.get('by')
 
     content  = request.json
@@ -63,7 +41,7 @@ def authorizationFacebook():
 
             return jsonify(data)
     elif authType=='google':
-        auth     = request.headers['authorization']
+        auth     = request.headers['authorization'].split()[1]
         r    = requests.get('https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + str(auth))
         data = r.json()
         print(data)
