@@ -32,6 +32,13 @@ def getUser(email):
 
     return data
 
+def getUserP(email):
+    arquivo = open('users/' + email + '.json', 'r')
+    data    = json.load(arquivo)
+    arquivo.close()
+
+    return data
+
 def getHospital(ID):
     arquivo = open('hosp/' + str(ID) + '.json', 'r')
     data    = json.load(arquivo)
@@ -60,7 +67,7 @@ def login(email, password):
     if not userRegistered(email):
         return False
 
-    if hash(password)==getUser(email)['password']:
+    if hash(password)==getUserP(email)['password']:
         return True
 
     return False
