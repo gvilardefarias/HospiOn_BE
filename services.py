@@ -1,4 +1,5 @@
 import requests
+import time
 from jwt import (
     JWT,
     jwk_from_dict,
@@ -55,7 +56,7 @@ def authorizationFacebook():
         if r.status_code==200:
             email = content['email']
 
-            data['token'] = instanceJWT.encode({'email': email}, key, alg='HS256')
+            data['token'] = instanceJWT.encode({'email': email, 'time': time.time()}, key, alg='HS256')
 
             if not methods.userRegistered(email):
                 methods.register(data['name'], '', email, "PF")
@@ -70,14 +71,41 @@ def authorizationFacebook():
         if r.status_code==200:
             email = content['email']
 
-            data['token'] = instanceJWT.encode({'email': email}, key, alg='HS256')
+            data['token'] = instanceJWT.encode({'email': email, 'time': time.time()}, key, alg='HS256')
 
             if not methods.userRegistered(email):
                 methods.register(data['given_name'], data['family_name'], email, "PF")
     
             return jsonify(data)
+    elif authType=='cnpj':
+        email = content['email']
+
+        data = {}
+        data['token'] = instanceJWT.encode({'email': email, 'time': time.time()}, key, alg='HS256')
+
+        if not methods.userRegistered(email):
+            methods.registerPJ(content['name'], email, content['password'], content['cnpj'])
+        else:
+            return jsonify({"message": "Register already exists"}), 400
+
+        return jsonify(data)
 
     return jsonify({"message": "Authentication Failed"}), 400
+
+@app.route('/login', methods=['POST'])
+def login():
+    content  = request.json
+
+    email = content['email']
+
+    if methods.login(email, content['password']):
+        data = {}
+        data['token'] = instanceJWT.encode({'email': email, 'time': time.time()}, key, alg='HS256')
+
+        return jsonify(data)
+
+    return jsonify({"message": "Authentication Failed"}), 400
+
     
 @app.route('/user/<email>')
 def getUser(email):
