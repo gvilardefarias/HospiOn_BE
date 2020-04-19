@@ -68,10 +68,12 @@ def login(email, password):
     if not userRegistered(email):
         return False
 
-    if hashlib.sha224(password.encode('UTF-8')).hexdigest()==getUserP(email)['password']:
-        return True
+    user = getUserP(email)
 
-    return False
+    if hashlib.sha224(password.encode('UTF-8')).hexdigest()==user['password']:
+        return True, user['name']
+
+    return False, None
 
 def getOrder(ID):
     arquivo = open('orders/' + str(ID) + '.json', 'r')

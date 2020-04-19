@@ -74,9 +74,12 @@ def login():
 
     email = content['email']
 
-    if methods.login(email, content['password']):
+    log, name = methods.login(email, content['password'])
+
+    if log:
         data = {}
         data['token'] = instanceJWT.encode({'email': email, 'time': time.time()}, key, alg='HS256')
+        data['name']  = name
 
         return jsonify(data)
 
