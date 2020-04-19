@@ -1,0 +1,10 @@
+{
+  "id": 3,
+
+  "titulo": "Necessita-se de sangue",
+  "descricao": "Precisa-se sangue do tipo O+",
+
+  "hospitalID": 2,
+  "doador": "",
+  "confirmada": false
+}
