@@ -37,6 +37,23 @@ def getHospital(ID):
 
     return data
 
+def getAllHospital():
+    count     = open('hosp/count', 'r')
+    num       = int(count.readline())
+    count.close()
+
+    hospitals = []
+
+    for i in range(num):
+        arquivo = open('hosp/' + str(i) + '.json', 'r')
+
+        hospitals.append(json.load(arquivo))
+
+        arquivo.close()
+
+    return hospitals
+
+
 def login(email, password):
     if not userRegistered(email):
         return False

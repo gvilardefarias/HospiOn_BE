@@ -116,6 +116,10 @@ def getUser(email):
 def getHospital(ID):
     return jsonify(methods.getHospital(ID))
 
+@app.route('/getAllHospital/')
+def getAllHospital():
+    return jsonify(methods.getAllHospital())
+
 @app.route('/getOrder/<ID>')
 def getOrder(ID):
     return jsonify(methods.getOrder(ID))
