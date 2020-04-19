@@ -23,7 +23,6 @@ def hello_world():
 @app.route('/auth', methods=['POST'])
 def authorization():
     authType = request.args.get('by')
-
     content  = request.json
 
     if authType=='facebook':
@@ -44,8 +43,6 @@ def authorization():
         auth     = request.headers['authorization']
         r    = requests.get('https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + str(auth))
         data = r.json()
-        print(data)
-        print('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + str(auth))
 
         if r.status_code==200:
             email = content['email']
@@ -109,6 +106,22 @@ def getAllOrders():
 @app.route('/updateOrder/<ID>', methods=['POST'])
 def updateOrder(ID):
     return jsonify(methods.updateOrder(ID, request.json))
+
+@app.route('/addOrder/', methods=['POST'])
+def addOrder():
+    content  = request.json
+    auth     = request.headers['authorization']
+
+    email = instanceJWT.decode(auth, key)['email']
+
+    isHosp, ID = methods.isHospital(email)
+
+    if isHosp:
+        methods.addOrder(ID, content)
+
+        return jsonify({"message": "Register sucessfull"})
+
+    return jsonify({"message": "Authentication Failed"}), 400
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

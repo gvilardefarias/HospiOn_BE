@@ -103,3 +103,42 @@ def updateOrder(ID, data):
     arquivo.close()
     
     return data
+
+def isHospital(email):
+    user = getUser(email)
+
+    if user['type']=='HS':
+        return True, user['id']
+
+    return False, None
+
+def addOrderInHospital(hID, oID):
+    hosp = getHospital(hID)
+
+    hosp['pedidos'].append(oID)
+
+    arquivo = open('hosp/' + str(hID) + '.json', 'w')
+    arquivo.write(json.dumps(hosp))
+    arquivo.close()
+
+def getOrderID():
+    arquivo = open('orders/count', 'r')
+    count   = int(arquivo.readline())
+    arquivo.close()
+
+    arquivo = open('orders/count', 'w')
+    arquivo.write(str(count+1))
+    arquivo.close()
+
+    return count
+
+def addOrder(hospID, order):
+    orderID = getOrderID()
+
+    data = {'id': orderID, 'hospitalID': hospID, 'doador': "", 'confirmada': False, 'titulo': order['titulo'], 'descricao': order['descricao']}
+
+    arquivo = open('orders/' + str(orderID) + '.json', 'w')
+    arquivo.write(json.dumps(data))
+    arquivo.close()
+
+    addOrderInHospital(hospID, orderID)
