@@ -83,6 +83,10 @@ def authorizationFacebook():
 def getUser(email):
     return jsonify(methods.getUser(email))
 
+@app.route('/getAllOrders/')
+def getAllOrders():
+    return jsonify(methods.getAllOrders())
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)

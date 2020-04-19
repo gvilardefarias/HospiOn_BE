@@ -20,3 +20,17 @@ def getUser(email):
 
     return data
 
+def getAllOrders():
+    count   = open('orders/count', 'r')
+    num     = int(count.readline())
+
+    orders = []
+
+    for i in range(num):
+        arquivo = open('orders/' + str(i) + '.json', 'r')
+
+        orders.append(json.load(arquivo))
+
+        arquivo.close()
+
+    return orders
