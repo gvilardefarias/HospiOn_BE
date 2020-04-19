@@ -25,7 +25,7 @@ def authorizationGoogle():
     authType = request.args.get('by')
 
     if authType=='google':
-        r    = requests.get('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + str(auth))
+        r    = requests.get('https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + str(auth))
         data = r.json()
 
         if r.status_code==200:
@@ -59,14 +59,16 @@ def authorizationFacebook():
 
             if not methods.userRegistered(email):
                 methods.register(data['name'], '', email, "PF")
-    
+
             return jsonify(data)
     elif authType=='google':
-        r    = requests.get('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + str(auth))
+        r    = requests.get('https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + str(auth))
         data = r.json()
+        print(data)
+        print('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + str(auth))
 
         if r.status_code==200:
-            email = data['email']
+            email = content['email']
 
             data['token'] = instanceJWT.encode({'email': email}, key, alg='HS256')
 
