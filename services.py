@@ -41,7 +41,7 @@ def authorization():
 
             return jsonify(data)
     elif authType=='google':
-        auth     = request.headers['authorization'].split()[1]
+        auth     = request.headers['authorization']
         r    = requests.get('https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + str(auth))
         data = r.json()
         print(data)
