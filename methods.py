@@ -38,6 +38,9 @@ def getUserP(email):
     data    = json.load(arquivo)
     arquivo.close()
 
+    if data['type']=='HS':
+        data['name'] = getHospital(data['id'])['nome']
+
     return data
 
 def getHospital(ID):
