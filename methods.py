@@ -69,7 +69,7 @@ def getAllHospital():
 
 def login(email, password):
     if not userRegistered(email):
-        return False
+        return False, None
 
     user = getUserP(email)
 
