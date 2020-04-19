@@ -79,6 +79,9 @@ def authorizationFacebook():
 
     return jsonify({"message": "Authentication Failed"}), 400
     
+@app.route('/user/<email>')
+def getUser(email):
+    return jsonify(methods.getUser(email))
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
