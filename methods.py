@@ -28,6 +28,8 @@ def getUser(email):
     data    = json.load(arquivo)
     arquivo.close()
 
+    data.pop('password', None)
+
     return data
 
 def getHospital(ID):
