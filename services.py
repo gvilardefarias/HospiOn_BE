@@ -44,12 +44,12 @@ def authorizationGoogle():
 
 @app.route('/auth', methods=['POST'])
 def authorizationFacebook():
-    auth     = request.headers['authorization']
     authType = request.args.get('by')
 
     content  = request.json
 
     if authType=='facebook':
+        auth     = request.headers['authorization']
         r    = requests.get('https://graph.facebook.com/me?access_token=' + str(auth))
         data = r.json()
 
@@ -63,6 +63,7 @@ def authorizationFacebook():
 
             return jsonify(data)
     elif authType=='google':
+        auth     = request.headers['authorization']
         r    = requests.get('https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + str(auth))
         data = r.json()
         print(data)
